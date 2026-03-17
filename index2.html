@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusFlow — Travaillez moins, avancez plus</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="glow-blob a"></div>
+  <div class="glow-blob b"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Focus<span>Flow</span></a>
+    <a href="#waitlist" class="nav-cta">Rejoindre la liste</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Bientôt disponible</div>
+    <h1>Arrête de <em>jongler.</em><br>Commence à avancer.</h1>
+    <p class="hero-sub">FocusFlow connecte tous tes outils et protège ton temps de concentration. Fini les 2h perdues par jour sur Slack, Notion et Jira.</p>
+
+    <form class="waitlist-form" id="waitlistForm" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="ton@email.com" required />
+      <button type="submit">Rejoindre la liste d'attente →</button>
+    </form>
+    <p class="form-note">🔒 Pas de spam. Accès anticipé réservé aux premiers inscrits.</p>
+    <p class="success-msg" id="successMsg">✅ Tu es sur la liste ! On te contacte en premier.</p>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">2h</div>
+      <div class="stat-label">perdues par jour en moyenne</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">outils à gérer simultanément</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">94%</div>
+      <div class="stat-label">des équipes remote concernées</div>
+    </div>
+  </div>
+
+  <!-- PROBLÈMES -->
+  <section class="section">
+    <p class="section-tag">Le problème</p>
+    <h2>Pourquoi tu perds autant de temps</h2>
+    <p class="section-sub">Chaque outil crée du bruit. Ensemble, ils créent le chaos.</p>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="problem-icon">🔀</div>
+        <h3>Outils éparpillés</h3>
+        <p>Slack, Notion, Jira, Google Meet... Tu passes plus de temps à chercher l'info qu'à travailler.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🚨</div>
+        <h3>Interruptions constantes</h3>
+        <p>Une notification toutes les 6 minutes. Impossible de rester dans un état de flow profond.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🕳️</div>
+        <h3>Blocages invisibles</h3>
+        <p>Personne ne sait qui bloque quoi. Les tâches traînent sans que personne ne le remarque.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FONCTIONNALITÉS -->
+  <section class="section" style="padding-top:0">
+    <p class="section-tag">La solution</p>
+    <h2>Ce que FocusFlow fait pour toi</h2>
+    <p class="section-sub">Une couche intelligente au-dessus de tes outils existants.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <h3>Intégration universelle</h3>
+        <p>Connecte Slack, Notion, Jira, GitHub en 5 minutes. Aucune migration nécessaire.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <h3>Détection des blocages</h3>
+        <p>L'IA identifie les tâches bloquées et alerte la bonne personne automatiquement.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <h3>Blocs focus protégés</h3>
+        <p>Réserve des plages sans interruption dans ton agenda. Les autres voient "Ne pas déranger".</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <h3>Rapport hebdomadaire</h3>
+        <p>Score de productivité, tendances, recommandations. En 2 minutes chaque lundi matin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section" id="waitlist">
+    <p class="section-tag">Accès anticipé</p>
+    <h2>Sois parmi les premiers.</h2>
+    <p>Les 100 premiers inscrits obtiennent 3 mois gratuits et un accès direct pour façonner le produit.</p>
+    <form class="waitlist-form" style="justify-content:center" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="ton@email.com" required />
+      <button type="submit">Je veux l'accès anticipé →</button>
+    </form>
+    <p class="form-note" style="margin-top:14px">🔒 Pas de spam. Désabonnement en 1 clic.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 FocusFlow — Fait avec ☕ et beaucoup de focus.</p>
+  </footer>
+
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('input[type="email"]').value;
+      const btn = form.querySelector('button');
+      btn.textContent = 'Envoi...';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://formspree.io/f/xyknbbnl', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ email }) });
+        if (res.ok) { form.innerHTML = '<p style="color:#4FFFC4;font-size:16px;font-weight:500">✅ Tu es sur la liste !</p>'; }
+        else { btn.textContent = 'Réessayer →'; btn.disabled = false; }
+      } catch { btn.textContent = 'Réessayer →'; btn.disabled = false; }
+    }
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.problem-card, .feature-card, .stat').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
